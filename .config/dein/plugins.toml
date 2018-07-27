@@ -1,0 +1,198 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+
+[[plugins]] # 補完
+repo = 'Shougo/deoplete.nvim'
+on_event = 'InsertEnter'
+hook_add = '''
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_ignore_case = 1
+    let g:deoplete#enable_smart_case = 1
+    " set completeopt+=noinsert
+"    " 自動で補完候補を出すと、完了時にもう一度Enterを押す必要があり鬱陶しいので手動補完に切り替える。いい方法があれば自動補完にする
+"    let g:deoplete#disable_auto_complete = 1
+"    inoremap <expr> <C-n> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
+"
+    " 補完候補が表示されている場合は確定。そうでない場合は改行
+    inoremap <expr><CR>  pumvisible() ? deoplete#close_popup() : "<CR>"
+
+    " <TAB>: completion.
+    imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+" これがあるとコマンドモードのインサートを抜けるとエラーが発生するのでコメントアウト
+"    " <S-TAB>: completion back.
+"    inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+"    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+'''
+
+
+ [[plugins]] # Toml
+ repo  = 'cespare/vim-toml'
+ 
+ [[plugins]] # Golang
+ repo = 'fatih/vim-go'
+ 
+ [[plugins]] # Japanese doc
+ repo = 'vim-jp/vimdoc-ja'
+ hook_add = '''
+     set helplang=ja,en
+ '''
+ 
+ [[plugins]] # auto-save
+ repo = 'vim-scripts/vim-auto-save'
+ hook_add = '''
+     let g:auto_save = 1
+     let g:auto_save_in_insert_mode = 0 
+ '''
+ 
+ [[plugins]]
+ repo = 'tpope/vim-commentary'
+ hook_add = '''
+ '''
+ 
+ 
+ [[plugins]] # unite.vim 後継
+ repo = 'Shougo/denite.nvim'
+ on_cmd = 'Denite'
+ hook_add = '''
+     nnoremap [unite] <Nop>
+     nmap U [unite]
+     nmap <silent> [unite]b :<C-u>Denite -mode=normal buffer<CR>
+     nmap <silent> [unite]l :<C-u>Denite -auto-preview line<CR>
+     nmap <silent> [unite]g :<C-u>Denite  -mode=normal grep<CR>
+     nmap <silent> [unite]* :<C-u>DeniteCursorWord -mode=normal grep<CR>
+     nmap <silent> [unite]o :<C-u>Denite -mode=normal file_old<CR>
+     nmap <silent> [unite]<C-y> :<C-u>Denite neoyank<CR>
+     nmap <silent> [unite]<C-r> :<C-u>Denite -resume<CR>
+     nmap <silent> [unite]; :<C-u>Denite -resume -immediately -select=+1<CR>
+     nmap <silent> [unite]- :<C-u>Denite -resume -immediately -select=-1<CR>
+     nmap <silent> [unite]<C-d> :<C-u>call denite#start([{'name': 'file_rec', 'args': ['~/dotfiles']}])<CR>
+     nnoremap ml :<C-u>call denite#start([{'name': 'file_rec', 'args': [g:memolist_path]}])<CR>
+ '''
+ hook_post_source = '''
+     " call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+     " call denite#custom#var('grep', 'command', ['ag'])
+     " call denite#custom#var('grep', 'recursive_opts', [])
+     " call denite#custom#var('grep', 'pattern_opt', [])
+     " call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
+    call denite#custom#var('file_rec', 'command', ['rg', '--files', '--glob', '!.git'])
+    call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'final_opts', [])
+    call denite#custom#var('grep', 'separator', ['--'])
+    call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading'])
+ '''
+ 
+ 
+ [[plugins]] # Extended f, F, t and T key mappings for Vim
+ repo = 'rhysd/clever-f.vim'
+ hook_post_source = '''
+     let g:clever_f_smart_case = 1
+     let g:clever_f_use_migemo = 1
+     let g:clever_f_chars_match_any_signs = ';'
+ '''
+ 
+ #ctrl+p でファイルあいまい検索ができる
+ [[plugins]]
+ repo = 'ctrlpvim/ctrlp.vim'
+ 
+ [[plugins]] #https://github.com/jacoborus/tender.vim
+ repo = 'jacoborus/tender.vim'
+ hook_post_source = '''
+     if (has("termguicolors"))
+         set termguicolors
+     endif
+ '''
+ 
+ [[plugins]] # ステータスライン
+ repo = 'itchyny/lightline.vim'
+ hook_add = '''
+     let g:lightline = {'colorscheme': 'tender'}
+ '''
+ 
+ [[plugins]] # hybrid
+ repo = 'w0ng/vim-hybrid'
+ 
+ [[plugins]]
+ repo = 'morhetz/gruvbox'
+ 
+ 
+ [[plugins]]
+ repo = 'easymotion/vim-easymotion'
+ hook_add = '''
+     let g:EasyMotion_do_mapping = 0 "Disable default mappings
+     nmap ; <Plug>(easymotion-s2)
+     let g:EasyMotion_enter_jump_first = 1
+     let g:EasyMotion_space_jump_first = 1
+     let g:EasyMotion_use_migemo = 1
+     let g:EasyMotion_smartcase = 1
+     nmap g/ <Plug>(easymotion-sn)
+     xmap g/ <Plug>(easymotion-sn)
+     omap g/ <Plug>(easymotion-tn)
+     hi link EasyMotionTarget Search
+     hi link EasyMotionTarget2First Search
+     hi link EasyMotionTarget2Second Search
+     hi link EasyMotionShade Comment
+ '''
+ 
+ [[plugins]] # ビューワ
+ repo = 'justinmk/vim-dirvish'
+ 
+ [[plugins]] #Asynchronous Lint Engine
+ repo = 'w0rp/ale'
+ hook_add = '''
+     " ファイルオープン時にチェックしたくない場合
+     let g:ale_lint_on_enter = 0
+ '''
+ 
+ [[plugins]] # マークの表示
+ repo = 'kshenoy/vim-signature'
+ hook_add = '''
+ " 全marks/markers削除時は消して良いか確認する
+ let g:SignaturePurgeConfirmation = 1
+ " キーバインド設定
+ let g:SignatureMap = {
+ 	\ 'Leader'             :  "m",
+ 	\ 'PlaceNextMark'      :  "m,",
+ 	\ 'ToggleMarkAtLine'   :  "m.",
+ 	\ 'PurgeMarksAtLine'   :  "m-",
+ 	\ 'DeleteMark'         :  "dm",
+ 	\ 'PurgeMarks'         :  "m<Space>",
+ 	\ 'PurgeMarkers'       :  "m<BS>",
+ 	\ 'GotoNextSpotAlpha'  :  "]@",
+ 	\ 'GotoPrevSpotAlpha'  :  "[@",
+ 	\ 'GotoNextMarker'     :  "]-",
+ 	\ 'GotoPrevMarker'     :  "[-",
+ 	\ 'GotoNextMarkerAny'  :  "]^",
+ 	\ 'GotoPrevMarkerAny'  :  "[^",
+ 	\ 'ListBufferMarks'    :  "m/",
+ 	\ 'ListBufferMarkers'  :  "m?"
+ 	\ }
+ '''
+ 
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+hook_add = '''
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_new_list_item_indent = 2
+'''
+# [[plugins]]
+# repo = 'tpope/vim-markdown'
+# hook_add = '''
+# '''
+
+[[plugins]]
+repo = 'kannokanno/previm'
+hook_add = '''
+  let g:previm_open_cmd = 'open -a "Google Chrome"'
+'''
