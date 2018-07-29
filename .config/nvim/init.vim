@@ -166,7 +166,6 @@ if system('uname -a | grep Microsoft') != ""
         \ }
 endif
 
-
 syntax on
 " Theme
 syntax enable
