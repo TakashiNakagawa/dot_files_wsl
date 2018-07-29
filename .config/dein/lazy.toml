@@ -22,6 +22,6 @@ hook_source='''
     call lexima#add_rule({'char': '<C-h>', 'at': '`\%#`',   'delete': 1})
 '''
 
-[[plugins]] #検索
-repo = 'jremmen/vim-ripgrep'
-on_cmd = ['Rg']
+# [[plugins]] #検索
+# repo = 'jremmen/vim-ripgrep'
+# on_cmd = ['Rg']
