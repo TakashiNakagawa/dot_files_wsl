@@ -125,11 +125,11 @@ hook_add = '''
      let g:lightline = {'colorscheme': 'tender'}
  '''
  
- [[plugins]] # hybrid
- repo = 'w0ng/vim-hybrid'
+ # [[plugins]] # hybrid
+ # repo = 'w0ng/vim-hybrid'
  
- [[plugins]]
- repo = 'morhetz/gruvbox'
+ # [[plugins]]
+ # repo = 'morhetz/gruvbox'
  
  
  [[plugins]]
@@ -156,8 +156,8 @@ hook_add = '''
  [[plugins]] #Asynchronous Lint Engine
  repo = 'w0rp/ale'
  hook_add = '''
-     " ファイルオープン時にチェックしたくない場合
-     let g:ale_lint_on_enter = 0
+      " ファイルオープン時にチェックしたくない場合
+      let g:ale_lint_on_enter = 0
  '''
  
  [[plugins]] # マークの表示
@@ -234,3 +234,10 @@ hook_add = """
   let QFixHowm_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.howm'
   let QFixHowm_Title = '#'
 """
+
+# 自動でルートディレクトリに移動
+[[plugins]]
+repo = "airblade/vim-rooter"
+hook_add = '''
+let g:rooter_use_lcd = 1
+'''
