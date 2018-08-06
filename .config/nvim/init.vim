@@ -171,5 +171,6 @@ syntax on
 syntax enable
 " set background=light
 " colorscheme gruvbox
-highlight Visual cterm=bold ctermbg=Blue ctermfg=NONE
+" highlight Visual cterm=bold ctermbg=Blue ctermfg=NONE
+colorscheme tender
 
