@@ -174,3 +174,5 @@ syntax enable
 " highlight Visual cterm=bold ctermbg=Blue ctermfg=NONE
 colorscheme tender
 
+" terminalをESCでコマンドモードに移行
+tnoremap <silent> <ESC> <C-\><C-n>
